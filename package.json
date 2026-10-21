@@ -1,0 +1,9 @@
+{
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "description": "Simple Node app for CI/CD testing",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
