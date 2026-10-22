@@ -46,7 +46,7 @@ pipeline{
                     sh """
                         # 1. Clone repo
                         git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/my-node-app-k8-manifesta.git
-                        cd my-node-app-k8-manifests
+                        cd my-node-app-k8-manifesta
 
                         # 2. Update the image tag in the Deployment file
                         sed -i "s|image: .*|image: ${IMAGE}:${TAG}|g" Deployment.yml
