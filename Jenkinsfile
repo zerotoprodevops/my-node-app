@@ -37,7 +37,7 @@ pipeline{
                 }
            }
         }
-    }
+    
 
         //GIT-OPS stage
         stage('Update GitOps ManifestRepo') {
@@ -61,6 +61,7 @@ pipeline{
                 }
             }
         }
+   }
 
     post{
         success{
