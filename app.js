@@ -6,7 +6,7 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello from Manab Node.js CI/CD!\n');
+  res.end('Hello from Manab .Argocd Node.js CI/CD!\n');
 });
 
 server.listen(port, hostname, () => {
