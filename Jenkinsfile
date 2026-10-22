@@ -44,6 +44,8 @@ pipeline{
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                     sh """
+			#0. Clean up previous runs (Fixes the 'already exists' error)
+			rm -rf my-node-app-k8-manifesta
                         # 1. Clone repo
                         git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/my-node-app-k8-manifesta.git
                         cd my-node-app-k8-manifesta
