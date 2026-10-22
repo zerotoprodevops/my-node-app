@@ -38,6 +38,30 @@ pipeline{
            }
         }
     }
+
+        //GIT-OPS stage
+        stage('Update GitOps ManifestRepo') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
+                    sh """
+                        # 1. Clone repo
+                        git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/my-node-app-k8-manifesta.git
+                        cd my-node-app-k8-manifests
+
+                        # 2. Update the image tag in the Deployment file
+                        sed -i "s|image: .*|image: ${IMAGE}:${TAG}|g" Deployment.yml
+
+                        # 3. Commit and Push the change back to GitHub
+                        git config user.email "jenkins@k8cluster.local"
+                        git config user.name "Jenkins CI"
+                        git add Deployment.yml
+                        git commit -m "Update image tag to ${TAG} [skip ci]"
+                        git push origin main
+                    """
+                }
+            }
+        }
+
     post{
         success{
             echo "Build ${TAG} succeeded -image on docker hub"
