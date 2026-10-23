@@ -48,15 +48,15 @@ pipeline{
 			rm -rf my-node-app-k8-manifesta
                         # 1. Clone repo
                         git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/my-node-app-k8-manifesta.git
-                        cd my-node-app-k8-manifesta
+                        cd my-node-app-k8-manifesta/node-app-chart
 
-                        # 2. Update the image tag in the Deployment file
-                        sed -i "s|image: .*|image: ${IMAGE}:${TAG}|g" Deployment.yml
-
+                        # 2. Update the image tag in the value.yaml file
+			sed -i "s|  repository: .*|  repository: ${IMAGE}|g" values.yaml
+			sed -i "s|  tag: .*|  tag: \"${TAG}\"|g" values.yaml
                         # 3. Commit and Push the change back to GitHub
                         git config user.email "jenkins@k8cluster.local"
                         git config user.name "Jenkins CI"
-                        git add Deployment.yml
+                        git add .
                         git commit -m "Update image tag to ${TAG} [skip ci]"
                         git push origin main
                     """
